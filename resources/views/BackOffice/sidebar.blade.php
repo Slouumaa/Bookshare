@@ -2,16 +2,12 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{{ route('dashboardAdmin') }}" class="app-brand-link">
-            <span class="app-brand-logo demo">
-                <!-- Logo SVG -->
-                <svg width="25" viewBox="0 0 25 42" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <path d="M13.79,0.35 L3.39,7.44 C0.56,9.69 -0.37,12.47 0.55,15.79 C0.68,16.23 1.09,17.78 3.12,19.22 C3.81,19.72 5.32,20.38 7.65,21.21 L7.59,21.25 L2.63,24.54 C0.44,26.30 0.08,28.50 1.56,31.17 C2.83,32.81 5.20,33.26 7.09,32.53 C8.34,32.05 11.45,30.00 16.41,26.37 C18.03,24.49 18.69,22.45 18.40,20.23 C17.96,17.53 16.17,15.57 13.04,14.37 L10.91,13.47 L18.61,7.98 L13.79,0.35 Z" id="path-1"></path>
-                    </defs>
-                    <use fill="#696cff" xlink:href="#path-1"></use>
-                </svg>
-            </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">BookShare</span>
+
+              <span class="app-brand-logo demo">
+                <img alt="icon"  src="../assets/img/libroLogo.png" style="width:40px; height:40px; margin-right:10px;" >
+              </span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">LibroLink</span>
+
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="bx bx-chevron-left bx-sm align-middle"></i>

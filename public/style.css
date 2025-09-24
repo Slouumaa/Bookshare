@@ -28,7 +28,17 @@ Version: 1.1
     --header-height-min: 80px;
   }
 }
+.logo-text {
+    font-size: 1.8rem;
+    color: #949494;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1.5px; /* espace entre les lettres */
+    transition: color 0.3s ease; /* animation douce pour hover */
+}
 
+.logo-link:hover .logo-text {
+    color: #daa556; /* couleur au hover */
+}
 /* Theme Colors */
 :root {
   --accent-color: #C5A992;

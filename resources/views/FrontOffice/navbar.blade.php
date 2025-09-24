@@ -75,7 +75,11 @@
 
 					<div class="col-md-2">
 						<div class="main-logo">
-							<a href="index.html"><img src="images/main-logo.png" alt="logo"></a>
+
+							<a href="{{ route('accueil') }}" class="logo-link d-flex align-items-center">
+								<img src="assets/img/libroLogo.png" alt="logo" style="width:50px; height:60px; margin-right:10px;">
+								<span class="logo-text">LibroLink</span>
+							</a>
 						</div>
 
 					</div>
@@ -97,7 +101,7 @@
 									<li class="menu-item">
 										<a href="{{ url('/offer') }}" class="nav-link">About us</a>
 									</li>
-								
+
 								</ul>
 
 								<div class="hamburger">
