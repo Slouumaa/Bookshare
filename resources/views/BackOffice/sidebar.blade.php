@@ -25,7 +25,7 @@
         <li class="menu-item {{ request()->routeIs('dashboardAdmin') ? 'active' : '' }}">
             <a href="{{ route('dashboardAdmin') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard Admin</div>
+                <div data-i18n="Analytics">Admin Dashboard</div>
             </a>
         </li>
         @endif
@@ -35,7 +35,7 @@
         <li class="menu-item {{ request()->routeIs('dashboardAuteur') ? 'active' : '' }}">
             <a href="{{ route('dashboardAuteur') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard Auteur</div>
+                <div data-i18n="Analytics">Author Dashboard</div>
             </a>
         </li>
         @endif
@@ -44,21 +44,21 @@
         <!-- ✅ Partie visible UNIQUEMENT pour ADMIN -->
         @if(auth()->user()->isAdmin())
         <!-- Gestion des utilisateurs -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Gestion des utilisateurs</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Accounts Managements</span></li>
         <li class="menu-item {{ request()->routeIs('AjouterUtilisateur', 'listeUtilisateur') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Utilisateurs</div>
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Layouts">Users</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('AjouterUtilisateur') ? 'active' : '' }}">
                     <a href="{{ route('AjouterUtilisateur') }}" class="menu-link">
-                        <div data-i18n="Without menu">Ajouter utilisateur</div>
+                        <div data-i18n="Without menu">Add User</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('listeUtilisateur') ? 'active' : '' }}">
                     <a href="{{ route('listeUtilisateur') }}" class="menu-link">
-                        <div data-i18n="Without navbar">Liste des utilisateurs</div>
+                        <div data-i18n="Without navbar">Users List</div>
                     </a>
                 </li>
             </ul>
@@ -66,42 +66,42 @@
 
 
         <!-- Gestion des magasins -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Gestion des magasins</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Stores Managements</span></li>
         <li class="menu-item {{ request()->routeIs('AjouterMagasin', 'listeMagasin') ? 'open active' : '' }}">
             <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="User interface">Magasins</div>
+                 <i class="menu-icon tf-icons bx bx-store"></i>
+                <div data-i18n="User interface">Stores</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('AjouterMagasin') ? 'active' : '' }}">
                     <a href="{{ route('AjouterMagasin') }}" class="menu-link">
-                        <div data-i18n="Accordion">Ajouter magasin</div>
+                        <div data-i18n="Accordion">Add Store</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('listeMagasin') ? 'active' : '' }}">
                     <a href="{{ route('listeMagasin') }}" class="menu-link">
-                        <div data-i18n="Alerts">Liste des magasins</div>
+                        <div data-i18n="Alerts">Stores List</div>
                     </a>
                 </li>
             </ul>
         </li>
 
         <!-- Gestion des Blogs -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Gestion Blogs</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Blogs Managements</span></li>
         <li class="menu-item {{ request()->routeIs('AjouterBlog', 'listeBlog') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
+                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div data-i18n="Form Elements">Blogs</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('AjouterBlog') ? 'active' : '' }}">
                     <a href="{{ route('AjouterBlog') }}" class="menu-link">
-                        <div data-i18n="Basic Inputs">Ajouter Blog</div>
+                        <div data-i18n="Basic Inputs">Add Blog</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('listeBlog') ? 'active' : '' }}">
                     <a href="{{ route('listeBlog') }}" class="menu-link">
-                        <div data-i18n="Input groups">Liste des blogs</div>
+                        <div data-i18n="Input groups">Blogs List</div>
                     </a>
                 </li>
             </ul>
@@ -111,21 +111,21 @@
         <!-- ✅ Partie visible pour ADMIN ET AUTEUR : Gestion des Livres -->
         @if(auth()->user()->isAdmin() || auth()->user()->isAuteur())
         <!-- Gestion des catégories -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Gestion des Livres</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Books Managements</span></li>
         <li class="menu-item {{ request()->routeIs('AjouterCategorie', 'listeCategorie') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                <div data-i18n="Misc">Categorie</div>
+                  <i class="menu-icon tf-icons bx bx-category"></i>
+                <div data-i18n="Misc">Categories</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('AjouterCategorie') ? 'active' : '' }}">
                     <a href="{{ route('AjouterCategorie') }}" class="menu-link">
-                        <div data-i18n="Error">Ajouter Categorie Livre</div>
+                        <div data-i18n="Error">Add Categorie </div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('listeCategorie') ? 'active' : '' }}">
                     <a href="{{ route('listeCategorie') }}" class="menu-link">
-                        <div data-i18n="Under Maintenance">Liste des categories de livre</div>
+                        <div data-i18n="Under Maintenance">Categories List</div>
                     </a>
                 </li>
             </ul>
@@ -133,22 +133,37 @@
         <!-- Gestion des livres -->
         <li class="menu-item {{ request()->routeIs('AjouterLivre', 'listeLivre') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Livre</div>
+               <i class="menu-icon tf-icons bx bx-book"></i>
+                <div data-i18n="Account Settings">Books</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('AjouterLivre') ? 'active' : '' }}">
                     <a href="{{ route('AjouterLivre') }}" class="menu-link">
-                        <div data-i18n="Account">Ajouter Livre</div>
+                        <div data-i18n="Account">Add Book</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('listeLivre') ? 'active' : '' }}">
                     <a href="{{ route('listeLivre') }}" class="menu-link">
-                        <div data-i18n="Notifications">Liste des livres</div>
+                        <div data-i18n="Notifications">Books List</div>
                     </a>
                 </li>
+                    
+              
+
+
             </ul>
         </li>
+
+
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Payments</span></li>
+
+            <li class="menu-item {{ request()->routeIs('transaction') ? 'active' : '' }}">
+                        <a href="{{ route('transactions') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-money"></i>
+                            <div data-i18n="Account Settings">Transactions</div>
+                        </a>
+                </li>
+
         @endif
     </ul>
 </aside>

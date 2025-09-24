@@ -17,6 +17,10 @@ Route::get('/articles', function () {
     return view('FrontOffice.Articles.ArticlePage');
 })->name('articles');
 
+Route::get('/aboutus', function () {
+    return view('FrontOffice.Aboutus.AboutPage');
+})->name('aboutus');
+
 // ========================
 // 🔒 Routes du Back Office
 // ========================
@@ -40,6 +44,11 @@ Route::middleware(['auth'])->group(function () {
         // Utilisateur Management
         Route::get('/AjouterUtilisateur', fn() => view('BackOffice.utilisateur.ajouterUtilisateur'))->name('AjouterUtilisateur');
         Route::get('/listeUtilisateur', fn() => view('BackOffice.utilisateur.listeUtilisateur'))->name('listeUtilisateur');
+        Route::get('/transactions', fn() => view('BackOffice.Transactions.Transactions'))->name('transactions');
+
+
+
+
     });
 
     // ========================
@@ -61,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
         // Categorie Management
         Route::get('/AjouterCategorie', fn() => view('BackOffice.categorieLivre.ajouterCategorie'))->name('AjouterCategorie');
         Route::get('/listeCategorie', fn() => view('BackOffice.categorieLivre.listeCategorie'))->name('listeCategorie');
+        Route::get('/borrows', fn() => view('BackOffice.Borrows.Borrows'))->name('borrows');
     });
 });
 

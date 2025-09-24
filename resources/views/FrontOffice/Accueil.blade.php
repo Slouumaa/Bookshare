@@ -211,4 +211,5 @@
 		</div>
 	</section>
 	@include("FrontOffice.Articles.ArticleContenu")
+	@include("FrontOffice.Aboutus.About")
 	@endsection

@@ -39,6 +39,9 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'photo_profil' => $request->file('photo_profil') 
+            ? file_get_contents($request->file('photo_profil')->getRealPath()) 
+            : null,
             'role' => 'user', 
         ]);
 
@@ -46,6 +49,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('/', absolute: false));
+        return redirect(route('accueil', absolute: false));
     }
 }

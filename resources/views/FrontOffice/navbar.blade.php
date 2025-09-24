@@ -23,8 +23,9 @@
 					</div>
 					<div class="col-md-6">
 
-						<div class="right-element">
-
+					<div class="right-element">
+						<a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart</span></a>
+						
 							@guest
 							<!-- Utilisateur non connecté -->
 							<a href="{{ route('login') }}" class="user-account for-buy">
@@ -47,19 +48,18 @@
 								</a>
 							</form>
 							@endauth
+                   <div class="action-menu">
+									<div class="search-bar">
+										<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+											<i class="icon icon-search"></i>
+										</a>
+										<form role="search" method="get" class="search-box">
+											<input class="search-field text search-input" placeholder="Search" type="search">
+										</form>
+									</div>
+					</div>
 
-							<a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0 $)</span></a>
-
-							<div class="action-menu">
-								<div class="search-bar">
-									<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
-										<i class="icon icon-search"></i>
-									</a>
-									<form role="search" method="get" class="search-box">
-										<input class="search-field text search-input" placeholder="Search" type="search">
-									</form>
-								</div>
-							</div>
+							
 
 						</div><!--top-right-->
 
@@ -99,7 +99,7 @@
 									</li>
 									<!-- Pour les autres liens, crée des routes ou utilise des URLs directes -->
 									<li class="menu-item">
-										<a href="{{ url('/offer') }}" class="nav-link">About us</a>
+										<a href="{{ route('aboutus') }}" class="nav-link">About us</a>
 									</li>
 
 								</ul>
