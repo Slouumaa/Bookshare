@@ -4,6 +4,7 @@ use App\Http\Controllers\AccueilController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryBlogController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UsersController;
@@ -20,7 +21,7 @@ use App\Http\Controllers\LikesController;
 
 
 use App\Http\Controllers\FrontOfficeController;
-
+use App\Http\Controllers\ReviewController;
 
 
 // Front Office Routes - Accessibles à tous (visiteurs, auteurs, admins)
@@ -38,7 +39,14 @@ Route::get('/livresf', function () {
 Route::get('/articles', [BlogController::class, 'indexFront'])->name('articles');
 
 Route::get('/article/{id}', [BlogController::class, 'show'])->name('articleDetail');
-
+//store routes
+Route::get('/stores', [StoreController::class, 'indexFront'])->name('stores');
+Route::get('/stores/{id}', [StoreController::class, 'show'])->name('stores.show');
+Route::post('/stores/{store}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+//edit and delit review store
+Route::post('/reviews/{storeId}', [ReviewController::class, 'store'])->name('reviews.store');
+Route::put('/reviews/{reviewId}', [ReviewController::class, 'update'])->name('reviews.update');
+Route::delete('/reviews/{reviewId}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
 Route::get('/aboutus', function () {
     return view('FrontOffice.Aboutus.AboutPage');
@@ -87,8 +95,10 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
 
         // Magasin Management
         Route::get('/AjouterMagasin', fn() => view('BackOffice.magasin.ajouterMagasin'))->name('AjouterMagasin');
-        Route::get('/listeMagasin', fn() => view('BackOffice.magasin.listeMagasin'))->name('listeMagasin');
-
+        Route::post('/AjouterMagasin', [App\Http\Controllers\StoreController::class, 'store'])->name('AjouterMagasin');
+        Route::get('/listeMagasin', [StoreController::class, 'index'])->name('listeMagasin');
+        Route::resource('stores', StoreController::class)->except(['create','index','store']);
+        
         // Utilisateur Management
 
         Route::get('/AjouterUtilisateur', [UsersController::class, 'createUser'])->name('AjouterUtilisateur');
@@ -102,6 +112,9 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
         })->name('listeUtilisateur');
 
         Route::get('/transactions', fn() => view('BackOffice.Transactions.Transactions'))->name('transactions');
+        
+        // Subscription Management
+        Route::resource('subscriptions', \App\Http\Controllers\SubscriptionController::class);
     });
 
     // ========================
@@ -112,6 +125,10 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
 Route::get('/mes-livres', [LivreController::class, 'mesLivres'])->name('mesLivres');
 
         Route::get('/dashboardAuteur', fn() => view('BackOffice.dashboardAuteur'))->name('dashboardAuteur');
+        
+        // Abonnements Auteur
+        Route::get('/mes-abonnements', [\App\Http\Controllers\AuthorSubscriptionController::class, 'index'])->name('author.subscriptions');
+        Route::post('/subscribe/{subscription}', [\App\Http\Controllers\AuthorSubscriptionController::class, 'subscribe'])->name('author.subscribe');
     });
 
     // ========================
@@ -129,6 +146,13 @@ Route::get('/livresf', [LivreController::class, 'indexf'])->name('livresf');
 
 
     Route::middleware(['role:admin,auteur'])->group(function () {
+
+        // Livre Management (avec vérification d'abonnement pour les auteurs)
+        Route::middleware(['App\Http\Middleware\CheckActiveSubscription'])->group(function () {
+            Route::get('/AjouterLivre', fn() => view('BackOffice.livre.ajouterLivre'))->name('AjouterLivre');
+        });
+        Route::get('/listeLivre', fn() => view('BackOffice.livre.listeLivre'))->name('listeLivre');
+
         // Livre Management
 // Routes Livres
 Route::resource('livres', LivreController::class);
@@ -140,6 +164,7 @@ Route::get('/listeLivre', [LivreController::class, 'index'])->name('listeLivre')
     // PDF - afficher et télécharger
 Route::get('/livres/{livre}/viewpdf', [LivreController::class, 'viewpdf'])->name('livres.viewpdf');
 Route::get('/livres/{livre}/download', [LivreController::class, 'download'])->name('livres.download');
+
 
 
         // Categorie Management
