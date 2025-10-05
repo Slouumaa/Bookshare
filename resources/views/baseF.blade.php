@@ -55,8 +55,21 @@
 
     <!-- Template JS -->
     <script src="{{ asset('js/plugins.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/scrip
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Force dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all dropdowns
+    const dropdowns = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+    dropdowns.forEach(function(dropdown) {
+        new bootstrap.Dropdown(dropdown);
+    });
+});
+</script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const dropdownToggle = document.getElementById('profileDropdown');
@@ -78,6 +91,7 @@
             });
         });
     </script>
+
 
 </body>
 </html>
