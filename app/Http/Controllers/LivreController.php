@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Spatie\PdfToImage\Pdf;
+use Smalot\PdfParser\Parser;
 
+
+
+// ou une autre librairie pour compter les pages
 class LivreController extends Controller
 {
     
@@ -64,8 +69,8 @@ public function mesLivres()
     'categorie_id' => 'required|exists:categories,id',
     'prix' => 'required|numeric|min:0',
     'stock' => 'required|integer|min:0',
-    'photo_couverture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048',
-    'pdf_contenu' => 'nullable|mimes:pdf|max:20480', 
+    'photo_couverture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:200048',
+    'pdf_contenu' => 'nullable|mimes:pdf|max:2000480', 
 ]);
 
 
@@ -102,7 +107,7 @@ return redirect()->route('livres.index')->with('success', 'Livre ajouté avec su
         'categorie_id' => 'nullable|exists:categories,id',
         'stock' => 'required|integer|min:0',
         'photo_couverture' => 'nullable|image|max:2048',
-        'pdf_contenu' => 'nullable|file|mimes:pdf|max:20480',
+        'pdf_contenu' => 'nullable|file|mimes:pdf|max:2000480',
         'prix' => 'nullable|numeric|min:0',
     ]);
 
@@ -187,5 +192,33 @@ public function showf(Livre $livre)
 
     return view('FrontOffice.livres.showf', compact('livre'));
 }
+
+
+// Dans ton contrôleur
+public function showReader($id)
+{
+ $livre = Livre::findOrFail($id);
+
+        // Vérifier si le fichier PDF existe
+       $livre = Livre::findOrFail($id);
+
+        if ($livre->pdf_contenu && Storage::disk('public')->exists($livre->pdf_contenu)) {
+            $pdfUrl = asset('storage/' . $livre->pdf_contenu);
+            $title = $livre->titre ?? 'Lecture du livre';
+
+            return view('FrontOffice.Livres.reader', compact('pdfUrl', 'title'));
+            
+        }
+
+        // Si le PDF n’existe pas, retourner une erreur ou rediriger
+        return abort(404, 'Le fichier PDF de ce livre est introuvable.');
+ 
+}
+
+
+
+
+
+
 
 }

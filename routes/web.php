@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\LivreController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\RateController;
 
 use App\Http\Controllers\ProfilController;
@@ -68,8 +69,16 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-books', [PaypalController::class, 'myBooks'])->name('myBooks');
-});
 
+});
+Route::middleware('auth')->group(function () {
+    Route::post('/bookmark/save', [BookmarkController::class, 'save']);
+    Route::post('/bookmark/save-line', [BookmarkController::class, 'saveLine']);
+
+Route::get('/bookmark/load', [BookmarkController::class, 'load'])->name('bookmark.load');
+Route::get('/livres/{livre}/reader', [LivreController::class, 'showReader'])->name('livres.reader');
+
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/borrows', [BorrowController::class, 'index'])->name('borrows');
