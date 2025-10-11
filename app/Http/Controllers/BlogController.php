@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
+use Uploadcare\Api;
+use Uploadcare\Configuration;
 
 class BlogController extends Controller
 {
@@ -45,34 +47,41 @@ class BlogController extends Controller
         return view('BackOffice.blog.ajouterBlog', compact('categories'));
     }
 
+
     public function store(Request $request)
     {
+        // Validation
         $request->validate([
-            'title'       => 'required|max:255',
-            'content'     => 'required',
-            'image'       => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'title'       => 'required|string|max:255',
+            'content'     => 'required|string',
+            'image'       => 'required|string', // maintenant c'est une URL publique
             'category_id' => 'nullable|exists:category_blogs,id',
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('uploads'), $imageName);
+        if (!Auth::check()) {
+            return back()->with('error', 'Vous devez être connecté pour ajouter un blog.');
+        }
 
+        // Créer le blog
         $blog = Blog::create([
             'title'       => $request->title,
-            'content'     => $request->content,
-            'image'       => $imageName,
+            'content'     => $request->input('content'),
+            'image'       => $request->image, // URL Uploadcare
             'user_id'     => Auth::id(),
-            'category_id' => $request->category_id,
+            'category_id' => $request->category_id ?? null,
         ]);
 
-        // Envoyer mail à tous les utilisateurs
+        // Optionnel : envoyer mail
         $users = User::all();
         foreach ($users as $user) {
+
             Mail::to($user->email)->send(new NewBlogMail($blog));
         }
 
-        return redirect()->route('listeBlog')->with('success', 'Blog created successfully and users have been notified.');
+        return redirect()->route('listeBlog')
+            ->with('success', 'Blog créé avec succès et image uploadée sur Uploadcare !');
     }
+
     public function edit(Blog $blog)
     {
         if ($blog->user_id !== Auth::id()) {
@@ -105,7 +114,7 @@ class BlogController extends Controller
 
         $blog->update([
             'title'       => $request->title,
-            'content'     => $request->content,
+            'content'     => $request->input('content'),
             'image'       => $imageName,
             'category_id' => $request->category_id,
         ]);

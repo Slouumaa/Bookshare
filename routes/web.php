@@ -34,8 +34,8 @@ Route::get('/', [FrontOfficeController::class, 'accueil'])->name('accueil');
 Route::get('/nos-categories', [FrontOfficeController::class, 'categories'])->name('front.categories');
 
 Route::get('/category/{id}/books', [FrontOfficeController::class, 'categoryBooks'])->name('category.books');
-  Route::get('/livres/{livre}/viewpdf', [LivreController::class, 'viewpdf'])->name('livres.viewpdf');
-        Route::get('/livres/{livre}/download', [LivreController::class, 'download'])->name('livres.download');
+Route::get('/livres/{livre}/viewpdf', [LivreController::class, 'viewpdf'])->name('livres.viewpdf');
+Route::get('/livres/{livre}/download', [LivreController::class, 'download'])->name('livres.download');
 
 
 Route::get('/livresf', [LivreController::class, 'indexf'])->name('livresf');
@@ -64,7 +64,6 @@ Route::middleware('auth')->group(function () {
     Route::get('paypal', [PaypalController::class, 'paypal'])->name('paypal');
     Route::get('success', [PaypalController::class, 'success'])->name('success');
     Route::get('cancel', [PaypalController::class, 'cancel'])->name('cancel');
-
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-books', [PaypalController::class, 'myBooks'])->name('myBooks');
@@ -80,7 +79,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notifications.list');
     Route::delete('/notifications/{id}', [NotificationController::class, 'delete'])->name('notifications.delete');
     Route::post('/notifications/clear', [NotificationController::class, 'clearAll'])->name('notifications.clear');
-
 });
 
 
@@ -158,7 +156,6 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
 
         // Subscription Management
         Route::resource('subscriptions', \App\Http\Controllers\SubscriptionController::class);
-
     });
 
     // ========================
@@ -172,8 +169,6 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
 
         // Abonnements Auteur
         Route::get('/mes-abonnements', [\App\Http\Controllers\AuthorSubscriptionController::class, 'index'])->name('author.subscriptions');
-
-
     });
 
     // ========================
@@ -181,10 +176,8 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
     // ========================*
     Route::middleware(['role:admin,auteur,user'])->group(function () {
         // Livre Management
-// Routes Livres
+        // Routes Livres
         Route::get('/livresf/{livre}', [LivreController::class, 'showf'])->name('livres.showf');
-        
-
     });
 
 
@@ -198,7 +191,7 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
         Route::get('/listeLivre', fn() => view('BackOffice.livre.listeLivre'))->name('listeLivre');
 
         // Livre Management
-// Routes Livres
+        // Routes Livres
         Route::resource('livres', LivreController::class);
 
         // Routes supplémentaires si tu veux des noms plus explicites
@@ -206,7 +199,7 @@ Route::middleware(['auth', 'dashboard.access'])->group(function () {
         Route::get('/listeLivre', [LivreController::class, 'index'])->name('listeLivre');
 
         // PDF - afficher et télécharger
-      
+
 
 
 
@@ -242,13 +235,12 @@ Route::middleware('auth')->group(function () {
 
     // routes/web.php
     Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
-
 });
 
 
 
 Route::get('/admin', function () {
-    return view('dashboard');
+    return view('accueil');
 })->middleware(['auth', 'role:admin']);
 
 Route::get('/dashboard', function () {

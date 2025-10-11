@@ -91,7 +91,7 @@
 							<figure>
 								<a href="{{ route('articleDetail', $blog->id) }}" class="image-hvr-effect">
 									@if($blog->image)
-									<img src="{{ asset('uploads/' . $blog->image) }}" alt="{{ $blog->title }}" class="post-image">
+									<img src="{{ asset( $blog->image) }}" alt="{{ $blog->title }}" class="post-image">
 									@else
 									<img src="images/default-post.jpg" alt="default" class="post-image">
 									@endif

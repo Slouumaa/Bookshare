@@ -18,7 +18,7 @@
                         <article class="column" data-aos="fade-up">
                             <figure>
                                 @if($blog->image)
-                                <img src="{{ asset('uploads/' . $blog->image) }}" alt="{{ $blog->title }}" class="post-image w-100">
+                                <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}" class="post-image w-100">
                                 @else
                                 <img src="images/default-post.jpg" alt="default" class="post-image w-100">
                                 @endif
